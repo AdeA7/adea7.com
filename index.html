@@ -1,115 +1,685 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ade Adepegba - Professional Profile</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Light gray background */
-        }
-        .hero-section {
-            /* Corrected: Using contentFetchId for the uploaded image */
-            background-image: url('baba.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add text shadow for readability */
-        }
-        .hero-overlay {
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better text contrast */
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-        /* Custom styling for rounded corners on all elements */
-        .rounded-element {
-            border-radius: 0.75rem; /* Tailwind's rounded-xl equivalent */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ade Adepegba — Product Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2eb;
+    --accent: #d4550a;
+    --accent2: #1a3a5c;
+    --mid: #6b6b6b;
+    --rule: #d8d3c8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'DM Sans', sans-serif; font-weight: 300;
+    overflow-x: hidden; cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed; width: 10px; height: 10px;
+    background: var(--accent); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1.5px solid var(--accent); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.25s, height 0.25s, opacity 0.2s;
+    opacity: 0.5;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 52px;
+    background: rgba(245, 242, 235, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-color: var(--rule); }
+
+  /* spacer so links stay centered when logo is gone */
+  .nav-spacer { width: 80px; }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; text-decoration: none; color: var(--mid);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-resume {
+    font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border: 1.5px solid var(--accent); color: var(--accent);
+    padding: 9px 18px; border-radius: 2px;
+    text-decoration: none; display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  }
+  .nav-resume:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+  .nav-cta {
+    font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    background: var(--accent); color: #fff; border: none;
+    padding: 10px 22px; border-radius: 2px;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #b8430a; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 52px; padding-top: 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding-right: 60px; padding-top: 40px;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  .hero-name {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(3rem, 5.5vw, 5.2rem);
+    line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 8px;
+  }
+  .hero-name .line2 { color: var(--accent2); }
+  .hero-title {
+    font-family: 'Syne', sans-serif; font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 600; color: var(--accent); margin: 20px 0 28px; letter-spacing: 0.01em;
+  }
+  .hero-bio {
+    font-size: 1rem; line-height: 1.75; color: #3a3a3a;
+    max-width: 460px; margin-bottom: 40px; font-weight: 300;
+  }
+  .hero-bio strong { font-weight: 500; color: var(--ink); }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper);
+    padding: 14px 30px; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-outline {
+    font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1.5px solid var(--ink); color: var(--ink);
+    padding: 14px 30px; border-radius: 2px; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+  .btn-download {
+    font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1.5px solid var(--accent); color: var(--accent);
+    padding: 14px 22px; border-radius: 2px; text-decoration: none;
+    display: flex; align-items: center; gap: 7px;
+    transition: all 0.2s;
+  }
+  .btn-download:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+  .btn-download svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 52px;
+    padding-top: 36px; border-top: 1px solid var(--rule);
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-top: 4px; }
+
+  /* Hero right */
+  .hero-right {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    padding: 80px 0;
+  }
+  .hero-card {
+    background: var(--accent2); color: #fff;
+    width: 340px; padding: 44px; border-radius: 4px;
+    position: relative;
+    box-shadow: 24px 24px 0px var(--accent);
+    animation: cardFloat 4s ease-in-out infinite;
+  }
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .hero-card-tag {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom: 28px;
+  }
+  .hero-card-initial {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 5rem;
+    line-height: 1; color: rgba(255,255,255,0.12); margin-bottom: -20px;
+    letter-spacing: -0.04em;
+  }
+  .hero-card-name {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem;
+    margin-bottom: 6px; position: relative; z-index: 1;
+  }
+  .hero-card-role { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-bottom: 28px; }
+  .hero-card-divider { width: 40px; height: 2px; background: var(--accent); margin-bottom: 24px; }
+  .hero-card-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-chip {
+    background: rgba(255,255,255,0.1); font-size: 0.68rem;
+    letter-spacing: 0.06em; padding: 5px 11px; border-radius: 2px;
+    color: rgba(255,255,255,0.8); text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-bg-text {
+    position: absolute; font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(120px, 18vw, 220px); color: rgba(10,10,15,0.04);
+    white-space: nowrap; letter-spacing: -0.06em;
+    bottom: -20px; left: -30px; z-index: 0; pointer-events: none; user-select: none;
+  }
+
+  /* SECTION COMMON */
+  section { padding: 100px 52px; position: relative; }
+  .section-header { margin-bottom: 60px; }
+  .section-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.05; letter-spacing: -0.03em;
+  }
+
+  /* WHAT I DO */
+  .services { background: var(--ink); color: var(--paper); }
+  .services .section-eyebrow { color: var(--accent); }
+  .services .section-eyebrow::before { background: var(--accent); }
+  .services .section-title { color: var(--paper); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px;
+  }
+  .service-card {
+    background: rgba(255,255,255,0.04); padding: 44px 36px;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: background 0.3s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-4px); }
+  .service-num {
+    font-family: 'Syne', sans-serif; font-size: 0.65rem;
+    letter-spacing: 0.2em; color: var(--accent); margin-bottom: 28px; font-weight: 700;
+  }
+  .service-icon { font-size: 2rem; margin-bottom: 20px; }
+  .service-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem;
+    margin-bottom: 14px; color: var(--paper);
+  }
+  .service-desc { font-size: 0.85rem; line-height: 1.75; color: rgba(245,242,235,0.55); }
+
+  /* EXPERIENCE */
+  .experience { background: var(--paper); }
+  .exp-timeline { position: relative; margin-top: 16px; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 16px; top: 0; bottom: 0;
+    width: 1px; background: var(--rule);
+  }
+  .exp-item {
+    display: grid; grid-template-columns: 44px 1fr;
+    gap: 32px; padding: 36px 0; border-bottom: 1px solid var(--rule);
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .exp-item.visible { opacity: 1; transform: translateX(0); }
+  .exp-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--accent);
+    margin-top: 6px; position: relative; z-index: 1; flex-shrink: 0;
+  }
+  .exp-dot.current { background: var(--accent); }
+  .exp-meta {
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500; margin-bottom: 8px;
+  }
+  .exp-role {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;
+  }
+  .exp-company { font-size: 0.85rem; color: var(--mid); margin-bottom: 16px; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.85rem; line-height: 1.7; color: #3a3a3a;
+    padding-left: 16px; position: relative; margin-bottom: 6px;
+  }
+  .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; }
+
+  /* SKILLS */
+  .skills-section { background: #f0ece2; }
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; margin-top: 8px; }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.8rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-pill {
+    font-size: 0.75rem; padding: 6px 14px; border-radius: 2px;
+    border: 1px solid var(--rule); color: var(--ink); background: var(--paper);
+    font-weight: 400; letter-spacing: 0.03em; transition: all 0.2s;
+  }
+  .skill-pill:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .skill-pill.highlight { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+
+  /* EDUCATION & CERTS */
+  .edu-certs { background: var(--paper); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .edu-item { margin-bottom: 32px; }
+  .edu-degree { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  .edu-school { font-size: 0.82rem; color: var(--mid); margin-bottom: 2px; }
+  .edu-note { font-size: 0.75rem; color: var(--accent); font-style: italic; }
+  .cert-grid { display: flex; flex-direction: column; gap: 14px; }
+  .cert-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 18px; background: #f0ece2; border-radius: 2px;
+    border-left: 3px solid var(--accent);
+  }
+  .cert-icon { font-size: 1.3rem; }
+  .cert-name { font-size: 0.82rem; font-weight: 500; }
+  .cert-issuer { font-size: 0.7rem; color: var(--mid); }
+
+  /* CONTACT */
+  .contact { background: var(--accent2); color: #fff; text-align: center; }
+  .contact .section-eyebrow { color: rgba(255,255,255,0.5); justify-content: center; }
+  .contact .section-eyebrow::before { background: rgba(255,255,255,0.4); }
+  .contact .section-title { color: #fff; }
+  .contact-sub { font-size: 1rem; color: rgba(255,255,255,0.65); margin: 20px auto 48px; max-width: 480px; line-height: 1.7; }
+  .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; text-decoration: none; padding: 14px 24px; border-radius: 2px;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.03em; transition: all 0.2s;
+  }
+  .contact-link:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .contact-link.resume-link {
+    background: var(--accent); border-color: var(--accent);
+    font-family: 'Syne', sans-serif; font-weight: 700;
+  }
+  .contact-link.resume-link:hover { background: #b8430a; border-color: #b8430a; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: rgba(245,242,235,0.35);
+    padding: 24px 52px; display: flex; justify-content: space-between;
+    align-items: center; font-size: 0.72rem; letter-spacing: 0.06em;
+  }
+  footer a { color: rgba(245,242,235,0.35); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .nav-spacer { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 24px; padding-top: 90px; }
+    .hero-left { padding-right: 0; }
+    .hero-right { display: none; }
+    section { padding: 72px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .skills-grid, .edu-grid { grid-template-columns: 1fr; gap: 32px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px 24px; }
+  }
+</style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Hero Section -->
-    <header class="hero-section h-96 flex items-center justify-center rounded-b-xl overflow-hidden shadow-lg">
-        <div class="hero-overlay"></div>
-        <div class="relative z-10 text-center p-4">
-            <h1 class="text-5xl font-bold mb-4">Ade Adepegba</h1>
-            <p class="text-xl font-medium">| Technology Enthusiast | Collaborator | Founder |</p>
-        </div>
-    </header>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- Main Content Section -->
-    <main class="container mx-auto px-4 py-8">
-        <section class="bg-white rounded-element shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">About Me</h2>
-            <p class="text-gray-700 leading-relaxed text-lg">
-                My name is Ade (pronounced Ah-Day), an established customer-focused delivery professional with more than a decade of proven success creating and leading initiatives. I have built a career at the intersection of customer experience, media, technology, and aviation that addressed business needs but transformed the way teams deliver value.
-            </p>
-            <p class="text-gray-700 leading-relaxed text-lg mt-4">   
-                My professional journey has been shaped by education, aviation and technology. I worked as a flight attendant with one of the world's 5-star airline where I learned the art of resilience, adaptability, and customer service. Today, I work with the largest airline in the world as UAT (User Acceptance Testing) ensuring that every technology tool supporting our flight crew operations is reliable and align with the mission of keeping crews and flights moving safely and efficiently. This unique combination allows me to view challenges from multiple perspectives and it fuels my resolve to deliver solutions that truly matter; frontline view of crews and customers and the backend systems that keep operations running. 
-            </p>
-            <p class="text-gray-700 leading-relaxed text-lg mt-4">
-                My technical skills includes scripting (Java, Linux, Git/GitHub), security tools (SIEM, Nessus, Burp Suite), and framework compliance with evidenced leadership by NSLS membership and mentoring roles. Communication, collaboration and results are hallmarks of my career with technical insights into translating actionable strategies and delivering impactful projects.
-            </p>
-        </section>
-
-    <!-- Contact Information Section -->
-          <section id="contact" class="p-6 text-center">
-  <h2 class="text-2xl font-bold mb-4">Contact</h2>
-  
-  <!-- Email -->
-   <!-- Email Icon -->
-
-    <a href="mailto:me@adea7.com" class="text-blue-600 hover:underline">
-      me@adea7.com
+<!-- NAV — logo removed, resume tab added -->
+<nav id="navbar">
+  <div class="nav-spacer"></div>
+  <ul class="nav-links">
+    <li><a href="#services">What I Do</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Credentials</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="Resume_Ade.docx" download="Ade_Adepegba_Resume.docx" class="nav-resume">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Resume
     </a>
-  </p>
-  
-  <!-- LinkedIn -->
-  <p class="mt-2">
-    <a href="https://www.linkedin.com/in/adea7/" target="_blank"
-       class="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
-      <!-- LinkedIn Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-5 h-5">
-        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 
-                 0 16 .513 16 1.146v13.708c0 .633-.526 
-                 1.146-1.175 1.146H1.175C.526 16 0 
-                 15.487 0 14.854V1.146zM4.943 
-                 13.5V6H2.542v7.5h2.401zm-1.2-8.574c.837 
-                 0 1.358-.554 1.358-1.248-.015-.709-.521-1.248-1.343-1.248S2.4 
-                 3.0 2.4 3.678c0 .694.521 1.248 1.328 
-                 1.248h.015zM13.5 13.5V9.359c0-2.223-1.184-3.255-2.762-3.255-1.276 
-                 0-1.845.705-2.165 1.2V6h-2.4s.03.909 
-                 0 7.5h2.4v-4.2c0-.225.016-.45.082-.611.18-.449.59-.915 
-                 1.278-.915.9 0 1.26.69 1.26 1.701V13.5h2.307z"/>
-      </svg>
-      <span>LinkedIn</span>
-    </a>
-  </p>
+    <a href="mailto:me@adea7.com" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Product Coordinator · Fort Worth, TX</div>
+    <h1 class="hero-name">
+      <span class="line1">Ade</span><br>
+      <span class="line2">Adepegba</span>
+    </h1>
+    <div class="hero-title">Turning User Feedback Into Product Value</div>
+    <p class="hero-bio">
+      Impact-driven product professional with <strong>15+ years</strong> in aviation, operations, and tech. I bridge the gap between users, developers, and leadership — translating complex requirements into clear, compliant, and user-focused products.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-primary">View My Work</a>
+      <a href="mailto:me@adea7.com" class="btn-outline">Let's Talk</a>
+      <a href="Resume_Ade.docx" download="Ade_Adepegba_Resume.docx" class="btn-download">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">FAR Compliance</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">PO</div>
+    <div class="hero-card">
+      <div class="hero-card-tag">Available for Hire</div>
+      <div class="hero-card-initial">AA</div>
+      <div class="hero-card-name">Ade Adepegba</div>
+      <div class="hero-card-role">Product Coordinator</div>
+      <div class="hero-card-divider"></div>
+      <div class="hero-card-skills">
+        <span class="skill-chip">Agile / Scrum</span>
+        <span class="skill-chip">Azure DevOps</span>
+        <span class="skill-chip">UAT</span>
+        <span class="skill-chip">Backlog Mgmt</span>
+        <span class="skill-chip">Aviation Ops</span>
+        <span class="skill-chip">SDLC</span>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- WHAT I DO -->
+<section class="services" id="services">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">What I Do</div>
+    <h2 class="section-title">How I Drive<br>Product Success</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-num">01</div>
+      <div class="service-icon">🗺️</div>
+      <div class="service-title">Product Coordination & Ownership</div>
+      <div class="service-desc">Defining product vision, managing backlogs, refining user stories, and collaborating with dev teams to deliver compliant, user-centered features on time.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <div class="service-icon">🧪</div>
+      <div class="service-title">UAT & QA Leadership</div>
+      <div class="service-desc">Leading user acceptance testing across non-prod environments, creating test data, validating product functionality against compliance and real user expectations.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.2s">
+      <div class="service-num">03</div>
+      <div class="service-icon">🔁</div>
+      <div class="service-title">Agile Facilitation</div>
+      <div class="service-desc">Active participant in sprint ceremonies — refinement, retros, stand-ups, and Big Room Planning.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.3s">
+      <div class="service-num">04</div>
+      <div class="service-icon">📊</div>
+      <div class="service-title">Stakeholder & Data Communication</div>
+      <div class="service-desc">Translating operational data and KPI reports into clear insights that drive strategy. Bridge between technical teams and business leadership.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.4s">
+      <div class="service-num">05</div>
+      <div class="service-icon">🛡️</div>
+      <div class="service-title">Risk & Compliance Management</div>
+      <div class="service-desc">Maintaining 100% labor agreement & compliance across operations. Applying NIST, ISO/IEC, and SDLC standards to reduce operational and security risk.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.5s">
+      <div class="service-num">06</div>
+      <div class="service-icon">🚀</div>
+      <div class="service-title">Prod Support & Issue Resolution</div>
+      <div class="service-desc">Rapid identification, recreation, and hotfix coordination with Dev team for production issues — minimizing operational disruption and keeping airlines running smoothly.</div>
+    </div>
+  </div>
+</section>
 
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">Experience</div>
+    <h2 class="section-title">15 Years of<br>Delivering Impact</h2>
+  </div>
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-dot current"></div>
+      <div>
+        <div class="exp-meta">– Present</div>
+        <div class="exp-role">User Acceptance Tester</div>
+        <ul class="exp-bullets">
+          <li>Create and validate test data in specified non-prod environments for all tracking & coordination applications ensuring compliance and user satisfaction.</li>
+          <li>SME on tracking processes — collaborate with Product Owner & developers to translate user feedback into actionable product deliverables.</li>
+          <li>Assist in user story refinement, backlog management and update tasks in Azure DevOps (ADO).</li>
+          <li>Participate in all Agile Ceremonies and Big Room Planning — presenting squad goals, capacity, and product features to leadership.</li>
+          <li>Provide production support: investigate, reproduce, and coordinate hotfixes to limit operational impact.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">Skills & Tools</div>
+    <h2 class="section-title">The Toolkit</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="fade-up">
+      <div class="skill-group-title">Product & Delivery</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">Backlog Management</span>
+        <span class="skill-pill highlight">User Story Refinement</span>
+        <span class="skill-pill highlight">UAT / A-B Testing</span>
+        <span class="skill-pill highlight">Agile & Scrum</span>
+        <span class="skill-pill">Sprint Planning</span>
+        <span class="skill-pill">Big Room Planning</span>
+        <span class="skill-pill">Azure DevOps</span>
+        <span class="skill-pill">SDLC</span>
+        <span class="skill-pill">Product Documentation</span>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.1s">
+      <div class="skill-group-title">Operations & Compliance</div>
+      <div class="skill-pills">
+        <span class="skill-pill highlight">FAR Compliance</span>
+        <span class="skill-pill highlight">Risk Mitigation</span>
+        <span class="skill-pill">Cross-functional Collaboration</span>
+        <span class="skill-pill">KPI Reporting</span>
+        <span class="skill-pill">Labor or Union Agreement Interpretation</span>
+        <span class="skill-pill">Workforce Planning</span>
+        <span class="skill-pill">Aviation Operations</span>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.2s">
+      <div class="skill-group-title">Technical Tools</div>
+      <div class="skill-pills">
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">GitHub / GitHub Actions</span>
+        <span class="skill-pill">Cloudflare</span>
+        <span class="skill-pill">FOS-Sabre</span>
+        <span class="skill-pill">SIEM</span>
+        <span class="skill-pill">Nessus</span>
+        <span class="skill-pill">Proofpoint</span>
+        <span class="skill-pill">HTML · Linux</span>
+        <span class="skill-pill">AI Tools</span>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.3s">
+      <div class="skill-group-title">Frameworks & Standards</div>
+      <div class="skill-pills">
+        <span class="skill-pill">NIST</span>
+        <span class="skill-pill">ISO/IEC</span>
+        <span class="skill-pill">COBIT</span>
+        <span class="skill-pill">PCI DSS</span>
+        <span class="skill-pill">OWASP</span>
+        <span class="skill-pill">CI/CD Pipelines</span>
+        <span class="skill-pill">NSLS Leadership</span>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- EDUCATION & CERTS -->
+<section class="edu-certs" id="education">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">Credentials</div>
+    <h2 class="section-title">Education &<br>Certifications</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="fade-up">
+      <div class="skill-group-title" style="margin-bottom:28px">Education</div>
+      <div class="edu-item">
+        <div class="edu-degree">M.S. Cybersecurity & Information Assurance</div>
+        <div class="edu-school">Western Governors University · Salt Lake City, UT</div>
+        <div class="edu-note">Security-informed product thinking</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">B.A. Communication Science</div>
+        <div class="edu-school">University of South Africa · Pretoria, South Africa</div>
+        <div class="edu-note">Foundation in stakeholder communication</div>
+      </div>
+    </div>
+    <div class="fade-up" style="transition-delay:0.15s">
+      <div class="skill-group-title" style="margin-bottom:28px">Certifications</div>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <div class="cert-icon">🛡️</div>
+          <div>
+            <div class="cert-name">CompTIA Security+</div>
+            <div class="cert-issuer">CompTIA</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🔐</div>
+          <div>
+            <div class="cert-name">Certified in Cybersecurity (CC)</div>
+            <div class="cert-issuer">ISC2</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">⚔️</div>
+          <div>
+            <div class="cert-name">Certified Ethical Hacker (CEH)</div>
+            <div class="cert-issuer">EC-Council</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-eyebrow fade-up">Let's Connect</div>
+  <h2 class="section-title fade-up">Ready to Build<br>Something Together?</h2>
+  <p class="contact-sub fade-up">I'm actively exploring Product Owner / Product Coordinator roles. If you're looking for someone who can bridge users, developers, and stakeholders — let's talk.</p>
+  <div class="contact-links fade-up">
+    <a class="contact-link" href="mailto:me@adea7.com"><span>✉️</span> me@adea7.com</a>
+    <a class="contact-link" href="tel:2146064742"><span>📞</span> 214-606-4742</a>
+    <a class="contact-link" href="https://linkedin.com/in/adea7" target="_blank"><span>🔗</span> LinkedIn</a>
+    <a class="contact-link" href="https://github.com/adea7" target="_blank"><span>💻</span> GitHub</a>
+    <a class="contact-link resume-link" href="Resume_Ade.docx" download="Ade_Adepegba_Resume.docx">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Resume
+    </a>
+  </div>
+</section>
 
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Ade Adepegba</span>
+  <span><a href="https://adea7.com">adea7.com</a></span>
+</footer>
 
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .service-card, .skill-pill').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '18px'; cursor.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px'; ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px'; cursor.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.5';
+    });
+  });
 
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
 
-
-
-
-
-
-
-
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up, .exp-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
